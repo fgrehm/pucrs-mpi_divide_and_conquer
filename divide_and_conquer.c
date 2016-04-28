@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +18,7 @@
 
 #define DEBUG 1
 
-int arr_size, my_rank, proc_n;
+int arr_size, my_rank, proc_n, tree_height, conquer_condition;
 int *arr;
 
 void divide_or_conquer();
@@ -38,6 +39,13 @@ int main(int argc, char *argv[]) {
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
   MPI_Comm_size(MPI_COMM_WORLD, &proc_n);
 
+  tree_height = (int)log2(proc_n+1);
+  conquer_condition = arr_size / pow(2, tree_height-1) + 1;
+
+#ifdef DEBUG
+  printf("Tree height is %d, will conquer when array is reduced to <= %d elements for %d leaf nodes", tree_height, conquer_condition, (int)pow(2, tree_height-1));
+#endif
+
   if (my_rank == 0) {
     arr = calloc(arr_size, sizeof(int));
     // init array with worst case for sorting
@@ -48,15 +56,19 @@ int main(int argc, char *argv[]) {
     printf("\nBefore: ");
     for (i = 0; i < arr_size; i++)
       printf("%03d ", arr[i]);
+    printf("\n");
 #endif
   }
 
   divide_or_conquer();
 
 #ifdef DEBUG
-  printf("\nAfter:  ");
-  for (i = 0; i < arr_size; i++)
-    printf("%03d ", arr[i]);
+  if (my_rank == 0) {
+    printf("\nAfter:  ");
+    for (i = 0; i < arr_size; i++)
+      printf("%03d ", arr[i]);
+    printf("\n");
+  }
 #endif
 
   MPI_Finalize();
@@ -66,7 +78,7 @@ int main(int argc, char *argv[]) {
 
 void divide_or_conquer() {
   if (proc_n != 1) {
-    printf("NOT SUPPORTED YET");
+    printf("NOT SUPPORTED YET\n");
     return;
   }
 
