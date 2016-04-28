@@ -2,31 +2,45 @@
 #include <stdlib.h>
 #include "bubble_sort.h"
 
-#define DEBUG 1            // comentar esta linha quando for medir tempo
-#define ARRAY_SIZE 40      // trabalho final com o valores 10.000, 100.000, 1.000.000
+// #define DEBUG 1
 
-int main() {
-    int vetor[ARRAY_SIZE];
-    int i;
+int usage();
 
-    // init array with worst case for sorting
-    for (i=0 ; i<ARRAY_SIZE; i++)
-      vetor[i] = ARRAY_SIZE-i;
+int main(int argc, char *argv[]) {
+  int arr_size;
+  if (argc != 2) { return usage(); }
+
+  if (sscanf(argv[1], "%i", &arr_size) != 1) {
+    printf("\nInvalid array size: %s\n", argv[1]);
+    return usage();
+  }
+
+  int vetor[arr_size];
+  int i;
+
+  // init array with worst case for sorting
+  for (i=0 ; i < arr_size; i++)
+    vetor[i] = arr_size-i;
 
 #ifdef DEBUG
-    printf("\nBefore: ");
-    for (i=0 ; i<ARRAY_SIZE; i++)
-      printf("%03d ", vetor[i]);
+  printf("\nBefore: ");
+  for (i=0 ; i < arr_size; i++)
+    printf("%03d ", vetor[i]);
 #endif
 
-    bubble_sort(vetor, ARRAY_SIZE);
+  bubble_sort(vetor, arr_size);
 
 #ifdef DEBUG
-    printf("\nAfter:  ");
-    for (i=0 ; i<ARRAY_SIZE; i++)
-      printf("%03d ", vetor[i]);
-    printf("\n");
+  printf("\nAfter:  ");
+  for (i=0 ; i < arr_size; i++)
+    printf("%03d ", vetor[i]);
+  printf("\n");
 #endif
 
-    return 0;
+  return 0;
+}
+
+int usage() {
+  printf("single-process ARRAY_SIZE\n");
+  return 1;
 }
