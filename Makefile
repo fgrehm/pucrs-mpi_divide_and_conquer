@@ -2,7 +2,7 @@ default:
 	@echo 'No default task'
 
 divide-and-conquer: divide_and_conquer.c bubble_sort.o
-	mpicc $^ -Wall -o $@
+	mpicc $^ -Wall -lm -o $@
 
 single-process: single_process.c bubble_sort.o
 	mpicc $^ -Wall -o $@

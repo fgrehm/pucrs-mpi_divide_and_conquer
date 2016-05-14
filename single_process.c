@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "bubble_sort.h"
 
-// #define DEBUG 1
+#define DEBUG 1
 
 int usage();
 
@@ -24,16 +24,23 @@ int main(int argc, char *argv[]) {
 
 #ifdef DEBUG
   printf("\nBefore: ");
-  for (i=0 ; i < arr_size; i++)
-    printf("%03d ", arr[i]);
+  for (i = 0; i < 10; i++)
+    printf("%05d ", arr[i]);
+  printf("... ");
+  for (i = arr_size - 11; i < arr_size; i++)
+    printf("%05d ", arr[i]);
+  printf("\n");
 #endif
 
   bubble_sort(arr, arr_size);
 
 #ifdef DEBUG
   printf("\nAfter:  ");
-  for (i=0 ; i < arr_size; i++)
-    printf("%03d ", arr[i]);
+  for (i = 0; i < 10; i++)
+    printf("%05d ", arr[i]);
+  printf("... ");
+  for (i = arr_size - 11; i < arr_size; i++)
+    printf("%05d ", arr[i]);
   printf("\n");
 #endif
 

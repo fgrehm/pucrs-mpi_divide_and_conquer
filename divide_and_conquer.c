@@ -54,8 +54,11 @@ int main(int argc, char *argv[]) {
 
 #ifdef DEBUG
     printf("\nBefore: ");
-    for (i = 0; i < arr_size; i++)
-      printf("%03d ", arr[i]);
+    for (i = 0; i < 10; i++)
+      printf("%05d ", arr[i]);
+    printf("... ");
+    for (i = arr_size - 11; i < arr_size; i++)
+      printf("%05d ", arr[i]);
     printf("\n");
 #endif
   }
@@ -65,8 +68,11 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
   if (my_rank == 0) {
     printf("\nAfter:  ");
-    for (i = 0; i < arr_size; i++)
-      printf("%03d ", arr[i]);
+    for (i = 0; i < 10; i++)
+      printf("%05d ", arr[i]);
+    printf("... ");
+    for (i = arr_size - 11; i < arr_size; i++)
+      printf("%05d ", arr[i]);
     printf("\n");
   }
 #endif
