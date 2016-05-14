@@ -15,25 +15,25 @@ int main(int argc, char *argv[]) {
     return usage();
   }
 
-  int vetor[arr_size];
+  int arr[arr_size];
   int i;
 
   // init array with worst case for sorting
   for (i=0 ; i < arr_size; i++)
-    vetor[i] = arr_size-i;
+    arr[i] = arr_size-i;
 
 #ifdef DEBUG
   printf("\nBefore: ");
   for (i=0 ; i < arr_size; i++)
-    printf("%03d ", vetor[i]);
+    printf("%03d ", arr[i]);
 #endif
 
-  bubble_sort(vetor, arr_size);
+  bubble_sort(arr, arr_size);
 
 #ifdef DEBUG
   printf("\nAfter:  ");
   for (i=0 ; i < arr_size; i++)
-    printf("%03d ", vetor[i]);
+    printf("%03d ", arr[i]);
   printf("\n");
 #endif
 
